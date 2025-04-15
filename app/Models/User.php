@@ -73,4 +73,14 @@ class User extends Authenticatable
             ->where('end_date', '>=', now())
             ->exists();
     }
+
+    public function plans()
+    {
+        return $this->belongsToMany(
+            Plan::class,
+            'memberships',
+            'user_id',
+            'plan_id'
+        );
+    }
 }
