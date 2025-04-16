@@ -14,4 +14,5 @@ interface UserDeviceService
     public function checkUserDeviceLimit();
     public function updateLastActive();
     public function createDeviceIdSession(string $device_id);
+    public function removeDeviceIdBySession();
 }

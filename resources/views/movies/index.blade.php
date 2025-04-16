@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-7 col-5 jumbotron-img">
                         <div class="jumbotron-layer"></div>
-                        <img src="assets/img/Jumbotron-img.png" alt="" class="img-fluid">
+                        <img src="{{ asset('assets/img/Jumbotron-img.png') }}" alt="jumbotron" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -32,11 +32,12 @@
                 @foreach ($latestMovies as $movie)
                     <div class="swiper-slide">
                         <div class="card">
-                            <a href="{{ route('movies.show', $movie->id) }}">
+                            {{-- <a href="{{ route('movies.show', $movie->id) }}"> --}}
+                            <a href="">
                                 <img src="{{ $movie->poster }}" class="img-fluid h-100" alt="...">
                                 <span class="badge rounded-pill text-bg-dark badge-rating">
                                     <img class="star-rating" src="assets/img/star-rating.png" alt="">
-                                    ({{ $movie->average_rating }})
+                                    ({{ number_format($movie->ratings_avg_rating, 1, '.') }})
                                 </span>
                             </a>
                         </div>
@@ -63,11 +64,12 @@
                 @foreach ($topRatedMovies as $movie)
                     <div class="swiper-slide">
                         <div class="card">
-                            <a href="{{ route('movies.show', $movie->id) }}">
+                            {{-- <a href="{{ route('movies.show', $movie->id) }}"> --}}
+                            <a href="">
                                 <img src="{{ $movie->poster }}" class="img-fluid h-100" alt="...">
                                 <span class="badge rounded-pill text-bg-dark badge-rating">
                                     <img class="star-rating" src="assets/img/star-rating.png" alt="">
-                                    ({{ $movie->average_rating }})
+                                    ({{ number_format($movie->ratings_avg_rating, 1, '.') }})
                                 </span>
                             </a>
                         </div>

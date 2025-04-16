@@ -17,7 +17,8 @@ return new class extends Migration
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('movie_id')->constrained()
                 ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('rating');
+            $table->decimal('rating', 2, 1)
+                ->default(0);
             $table->timestamps();
         });
     }

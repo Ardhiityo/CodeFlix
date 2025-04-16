@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Rating;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,7 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             PlanSeeder::class,
-            // MembershipSeeder::class
+            MembershipSeeder::class,
+            CategorySeeder::class,
+            MovieSeeder::class,
+            RatingSeeder::class,
         ]);
     }
 }

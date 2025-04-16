@@ -75,12 +75,22 @@ class UserDeviceRepository implements UserDeviceService
     public function updateLastActive()
     {
         return UserDevice::where('device_id', $this->getDeviceIdByUserSessionCurrent())
-            ->first()
             ->update(['last_active' => now()]);
     }
 
     public function createDeviceIdSession(string $device_id)
     {
-        return session(['device_id' => $device_id]);
+        return session()->put('device_id', $device_id);
+    }
+
+    public function removeDeviceIdBySession()
+    {
+        UserDevice::where(
+            'device_id',
+            $this->getDeviceIdByUserSessionCurrent()
+        )
+            ->delete();
+
+        return session()->forget('device_id');
     }
 }
