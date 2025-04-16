@@ -13,7 +13,6 @@ class Movie extends Model
 
     public function categories()
     {
-        // coba tanpa table pivot
-        return $this->belongsToMany(Category::class, 'category_movie', 'movie_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'category_movies', 'movie_id', 'category_id');
     }
 }

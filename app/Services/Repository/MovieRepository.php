@@ -19,7 +19,7 @@ class MovieRepository implements MovieService
     public function getLatestMovies()
     {
         return Movie::withAvg('ratings', 'rating')
-            ->latest()->take(3)->get();
+            ->latest()->take(8)->get();
     }
 
     public function getTopRatedMovies()
