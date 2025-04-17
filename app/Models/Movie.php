@@ -9,6 +9,8 @@ class Movie extends Model
 {
     protected $appends = ['average_rating'];
 
+    protected $with = ['categories'];
+
     protected function casts(): array
     {
         return [
