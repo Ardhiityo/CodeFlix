@@ -32,12 +32,11 @@
                 @foreach ($latestMovies as $movie)
                     <div class="swiper-slide">
                         <div class="card">
-                            {{-- <a href="{{ route('movies.show', $movie->id) }}"> --}}
-                            <a href="">
+                            <a href="{{ route('movies.show', $movie->slug) }}">
                                 <img src="{{ $movie->poster }}" class="img-fluid h-100" alt="...">
                                 <span class="badge rounded-pill text-bg-dark badge-rating">
                                     <img class="star-rating" src="assets/img/star-rating.png" alt="">
-                                    ({{ number_format($movie->ratings_avg_rating, 1, '.') }})
+                                    {{ number_format($movie->average_rating, 1, '.') }}
                                 </span>
                             </a>
                         </div>
@@ -64,12 +63,11 @@
                 @foreach ($topRatedMovies as $movie)
                     <div class="swiper-slide">
                         <div class="card">
-                            {{-- <a href="{{ route('movies.show', $movie->id) }}"> --}}
-                            <a href="">
+                            <a href="{{ route('movies.show', $movie->slug) }}">
                                 <img src="{{ $movie->poster }}" class="img-fluid h-100" alt="...">
                                 <span class="badge rounded-pill text-bg-dark badge-rating">
                                     <img class="star-rating" src="assets/img/star-rating.png" alt="">
-                                    ({{ number_format($movie->ratings_avg_rating, 1, '.') }})
+                                    {{ number_format($movie->average_rating, 1, '.') }}
                                 </span>
                             </a>
                         </div>

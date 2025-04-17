@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use App\Services\Interface\MovieService;
-use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
@@ -15,5 +15,12 @@ class MovieController extends Controller
         $topRatedMovies = $this->movieService->getTopRatedMovies();
 
         return view('movies.index', compact('latestMovies', 'topRatedMovies'));
+    }
+
+    public function show(Movie $movie)
+    {
+        $streamingUrl = $this->movieService->getStreamingUrl($movie);
+
+        return view('movies.show', compact('movie', 'streamingUrl'));
     }
 }

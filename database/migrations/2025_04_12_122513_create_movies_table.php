@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('poster');
             $table->date('release_date');
             $table->integer('duration');
-            $table->string('url_720');
-            $table->string('url_1080');
+            $table->string('url_720p');
+            $table->string('url_1080p');
             $table->string('url_2k');
             $table->timestamps();
         });

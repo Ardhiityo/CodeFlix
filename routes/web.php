@@ -19,4 +19,6 @@ Route::middleware(['auth', 'user.device.limit'])->group(function () {
     Route::get('/', [MovieController::class, 'index'])->name('movie.index');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/movies/{movie:slug}', [MovieController::class, 'show'])->name('movies.show');
 });

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             MovieSeeder::class,
             RatingSeeder::class,
+            CategoryMovieSeeder::class,
         ]);
     }
 }
