@@ -10,17 +10,10 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <x-category-nav />
-            {{-- <form class="d-flex me-md-5 position-relative" role="search" method="GET"
-                action="{{ route('movies.search') }}">
-                <input class="text-white form-control search-box pe-5" type="search" name="q"
-                    placeholder="Cari Disini" value="{{ request('q') }}" aria-label="Search">
-                <button type="submit" class="search-btn">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                </button>
-            </form> --}}
-            <form class="d-flex me-md-5 position-relative" role="search" method="GET" action="">
-                <input class="text-white form-control search-box pe-5" type="search" name="q"
-                    placeholder="Cari Disini" value="{{ request('q') }}" aria-label="Search">
+            <form class="d-flex me-md-5 position-relative" role="search" method="GET"
+                action="{{ route('movie.index') }}">
+                <input class="text-white form-control search-box pe-5" type="search" name="search"
+                    placeholder="Cari Disini" value="{{ request('search') }}" aria-label="Search">
                 <button type="submit" class="search-btn">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 </button>

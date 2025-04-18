@@ -10,4 +10,5 @@ interface MovieService
     public function getTopRatedMovies();
     public function getStreamingUrlByCurrentPlan();
     public function getStreamingUrl(Movie $movie);
+    public function searchMovies(string $search);
 }

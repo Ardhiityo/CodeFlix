@@ -17,4 +17,9 @@
             @endforeach
         </div>
     </li>
+    <li class="nav-item d-flex align-items-center">
+        <a href="{{ route('movies.all') }}" class="nav-link d-inline text-white">
+            MOVIES
+        </a>
+    </li>
 </ul>

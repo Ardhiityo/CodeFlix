@@ -51,4 +51,9 @@ class MovieRepository implements MovieService
             return $movie->url_2k;
         }
     }
+
+    public function searchMovies(string $search)
+    {
+        return Movie::where('title', 'like', '%' . $search . '%')->get();
+    }
 }

@@ -20,6 +20,9 @@ Route::middleware(['auth', 'user.device.limit'])->group(function () {
     Route::get('/', [MovieController::class, 'index'])
         ->name('movie.index');
 
+    Route::get('/movies', [MovieController::class, 'all'])
+        ->name('movies.all');
+
     Route::get('/movies/{movie:slug}', [MovieController::class, 'show'])
         ->name('movies.show');
 
