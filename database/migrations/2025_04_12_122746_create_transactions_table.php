@@ -21,9 +21,12 @@ return new class extends Migration
             $table->decimal('total_amount', 10, 2);
             $table->enum('payment_status', ['paid', 'unpaid'])
                 ->default('unpaid');
-            $table->string('midtrans_snap_token');
-            $table->string('midtrans_booking_code');
-            $table->string('midtrans_transaction_id');
+            $table->string('midtrans_snap_token')
+                ->nullable();
+            $table->string('midtrans_booking_code')
+                ->nullable();
+            $table->string('midtrans_transaction_id')
+                ->nullable();
             $table->timestamps();
         });
     }

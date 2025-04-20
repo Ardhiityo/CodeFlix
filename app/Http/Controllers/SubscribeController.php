@@ -34,10 +34,10 @@ class SubscribeController extends Controller
         );
     }
 
-    public function processPlan(Plan $plan)
-    {
-        $this->membershipService->createMembership(planId: $plan->id);
+    // public function processPlan(Plan $plan)
+    // {
+    //     $this->membershipService->createMembership(planId: $plan->id);
 
-        return view('subscription.success');
-    }
+    //     return view('subscription.success');
+    // }
 }

@@ -34,8 +34,7 @@
                 <div class="col-4 text-end fw-bold">Rp.{{ number_format($plan->price * 1.1, 0, ',', '.') }}</div>
             </div>
 
-            <form action="{{ route('subscription.process', $plan->id) }}" method="POST">
-                @csrf
+            <form action="#" id="pay-form">
                 <div class="mb-3 form-check">
                     <input class="form-check-input" type="checkbox" id="terms" required>
                     <label class="form-check-label" for="terms">
@@ -44,15 +43,17 @@
                         <a href="#" class="text-info">Privacy Policy</a>
                     </label>
                 </div>
-                <button type="submit" class="w-100 btn btn-green" id="pay-button">Continue</button>
+                <button type="submit" class="w-100 btn btn-green">Continue</button>
             </form>
+
         </div>
     </div>
 @endsection
 
 @section('scripts')
-    {{-- <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
     </script>
+
     <script>
         function handlePayment(data) {
             if (data.status === 'success') {
@@ -61,33 +62,8 @@
                 window.snap.pay(data.snap_token, {
                     onSuccess: async function(result) {
                         try {
-                            // Kirim request untuk register device
-                            const response = await fetch('/transaction/success', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                        .content
-                                },
-                                body: JSON.stringify({
-                                    order_id: result.order_id,
-                                    validation_token: validationToken,
-                                    transaction_id: result.transaction_id
-                                })
-                            });
-
-                            const responseData = await response.json();
-
-                            console.log(responseData);
-
-                            if (responseData.status === 'success') {
-                                window.location.href = responseData.redirect_url;
-                            } else {
-                                throw new Error(responseData.message);
-                            }
+                            window.location.href = '/transaction/success';
                         } catch (error) {
-                            console.error('Error:', error);
-                            alert('Failed to process device registration. Please contact support.');
                             window.location.href = '/';
                         }
                     },
@@ -105,7 +81,8 @@
                 alert('Payment failed to initialize');
             }
         }
-        document.getElementById('pay-button').addEventListener('click', async function(e) {
+
+        document.getElementById('pay-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             try {
@@ -116,17 +93,14 @@
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
                     body: JSON.stringify({
-                        plan_id: '{{ $plan->id }}',
-                        amount: '{{ $plan->price * 1.1 }}'
+                        plan_id: '{{ $plan->id }}'
                     })
                 });
-
                 const data = await response.json();
                 handlePayment(data);
             } catch (error) {
-                console.error('Error:', error);
                 alert('Failed to initialize payment');
             }
         });
-    </script> --}}
+    </script>
 @endsection
