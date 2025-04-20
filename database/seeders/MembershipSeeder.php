@@ -23,7 +23,7 @@ class MembershipSeeder extends Seeder
             'plan_id' => $plan->id,
             'active' => true,
             'start_date' => now(),
-            'end_date' => now()->addDays(7)
+            'end_date' => now()->addDays(-1)
         ]);
     }
 }
