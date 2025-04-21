@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('plan_id')->constrained()
                 ->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('transaction_number');
-            $table->decimal('total_amount', 10, 2);
+            $table->integer('total_amount');
             $table->enum('payment_status', ['paid', 'unpaid'])
                 ->default('unpaid');
             $table->string('midtrans_snap_token')

@@ -31,10 +31,12 @@
 
             <div class="mb-4 row">
                 <div class="col-8">Total payment</div>
-                <div class="col-4 text-end fw-bold">Rp.{{ number_format($plan->price * 1.1, 0, ',', '.') }}</div>
+                <div class="col-4 text-end fw-bold">
+                    Rp.{{ number_format($plan->price * 0.12 + $plan->price, 0, ',', '.') }}</div>
             </div>
 
-            <form action="#" id="pay-form">
+            <form action="{{ route('transaction.checkout') }}" id="pay-form" method="POST">
+                @csrf
                 <div class="mb-3 form-check">
                     <input class="form-check-input" type="checkbox" id="terms" required>
                     <label class="form-check-label" for="terms">
@@ -43,9 +45,9 @@
                         <a href="#" class="text-info">Privacy Policy</a>
                     </label>
                 </div>
+                <input type="hidden" name="plan_id" value="{{ $plan->id }}">
                 <button type="submit" class="w-100 btn btn-green">Continue</button>
             </form>
-
         </div>
     </div>
 @endsection
@@ -56,16 +58,11 @@
 
     <script>
         function handlePayment(data) {
-            if (data.status === 'success') {
+            if (data.status == 'success') {
                 const validationToken = data.validation_token;
-
                 window.snap.pay(data.snap_token, {
                     onSuccess: async function(result) {
-                        try {
-                            window.location.href = '/transaction/success';
-                        } catch (error) {
-                            window.location.href = '/';
-                        }
+                        window.location.href = '/transaction/success';
                     },
                     onPending: function(result) {
                         window.location.href = '/payment/pending';
@@ -84,7 +81,6 @@
 
         document.getElementById('pay-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-
             try {
                 const response = await fetch('/transaction/checkout', {
                     method: 'POST',

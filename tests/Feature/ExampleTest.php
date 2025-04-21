@@ -3,17 +3,19 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
+    public function testPluck()
     {
-        $response = $this->get('/');
+        $pluck = User::pluck('email', 'name');
 
-        $response->assertStatus(200);
+        self::assertNotNull($pluck);
+
+        Log::info($pluck);
     }
 }

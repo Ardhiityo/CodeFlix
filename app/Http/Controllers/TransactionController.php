@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Membership;
 use App\Models\Plan;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use League\CommonMark\Node\NodeWalker;
 
 class TransactionController extends Controller
 {
@@ -25,32 +28,26 @@ class TransactionController extends Controller
             'plan_id' => 'required|exists:plans,id',
         ]);
 
-        $orders = $request->only('plan_id');
+        $plan = Plan::find((int)$request->plan_id);
 
-        $plan = Plan::find((int)$orders['plan_id']);
-
-        $transaction = Transaction::create([
-            'user_id' => $user->id,
-            'plan_id' => $plan->id,
-            'transaction_number' => uniqid('CDFLX-') . '-' . $user->id,
-            'total_amount' => (int)$plan->price * 1.12
-        ]);
+        $order_id = uniqid('CDFLX-') . '-' . $user->id;
+        $total_amount = number_format(($plan->price * 0.12) + $plan->price, '0', '', '');
 
         $params = [
             'transaction_details' => [
-                'order_id' => $transaction->transaction_number,
-                'gross_amount' => number_format($transaction->total_amount, 0, '.', ''),
+                'order_id' => $order_id,
+                'gross_amount' => $total_amount,
             ],
             'item_details' => [
                 [
-                    'id' => $transaction->plan_id,
-                    'price' => number_format($transaction->total_amount, 0, '.', ''),
+                    'id' => $order_id,
+                    'price' => $total_amount,
                     'quantity' => 1,
                     'name' => $plan->title,
                 ]
             ],
             'customer_details' => [
-                'full_name' => $user->name,
+                'first_name' => $user->name,
                 'email' => $user->email
             ]
         ];
@@ -58,14 +55,17 @@ class TransactionController extends Controller
         try {
             $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-            $transaction->update([
+            Transaction::create([
+                'user_id' => $user->id,
+                'plan_id' => $plan->id,
+                'transaction_number' => $order_id,
                 'midtrans_snap_token' => $snapToken,
+                'total_amount' => $total_amount,
             ]);
 
             return response()->json([
                 'status' => 'success',
-                'snap_token' => $snapToken,
-                'transaction_number' => $transaction->transaction_number,
+                'snap_token' => $snapToken
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
